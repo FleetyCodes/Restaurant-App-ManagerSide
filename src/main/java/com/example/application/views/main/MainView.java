@@ -1,26 +1,47 @@
 package com.example.application.views.main;
 
+import com.example.application.views.employers.EmployeePaymentView;
+import com.example.application.views.employers.WorkerSchedulesView;
 import com.example.application.views.foods.and.drinks.FoodsConfigView;
+import com.example.application.views.reports.ReportsView;
+import com.example.application.views.special.events.EventCalendarView;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.sidenav.SideNav;
 import com.vaadin.flow.component.sidenav.SideNavItem;
 import com.vaadin.flow.router.Route;
-
+@CssImport("./styles/my-custom.css")
 @Route("")
 public class MainView extends VerticalLayout {
-
     public MainView() {
 
         SideNav nav = new SideNav();
+
         SideNavItem foodAndDrinksConfigNav = new SideNavItem("Food and Drinks Configuration");
-        foodAndDrinksConfigNav.setExpanded(true);
+        nav.setId("mainPageNavbar");
+
         foodAndDrinksConfigNav.addItem(new SideNavItem("Foods", FoodsConfigView.class, VaadinIcon.CUTLERY.create()));
         foodAndDrinksConfigNav.addItem(new SideNavItem("Drinks", FoodsConfigView.class, VaadinIcon.COFFEE.create()));
         foodAndDrinksConfigNav.addItem(new SideNavItem("Menus", FoodsConfigView.class, VaadinIcon.FILE.create()));
-        nav.addItem(foodAndDrinksConfigNav);
+        foodAndDrinksConfigNav.setExpanded(true);
 
+        SideNavItem workerSchedulesNav = new SideNavItem("Employer Configuration");
+        workerSchedulesNav.addItem(new SideNavItem("Employee Schedules", WorkerSchedulesView.class, VaadinIcon.CLOCK.create()));
+        workerSchedulesNav.addItem(new SideNavItem("Employee Payment", EmployeePaymentView.class, VaadinIcon.MONEY.create()));
+        workerSchedulesNav.setExpanded(true);
+
+        SideNavItem specialEventsNav = new SideNavItem("Special Events Configuration");
+        //main page should be this calendar ?
+        specialEventsNav.addItem(new SideNavItem("Calendar", EventCalendarView.class, VaadinIcon.CALENDAR.create()));
+        specialEventsNav.setExpanded(true);
+
+        SideNavItem reportsNav = new SideNavItem("Reports");
+        reportsNav.addItem(new SideNavItem("Check Reports", ReportsView.class, VaadinIcon.FOLDER.create()));
+        reportsNav.setExpanded(true);
+
+        nav.addItem(foodAndDrinksConfigNav, workerSchedulesNav, specialEventsNav, reportsNav);
         Div navWrapper = new Div(nav);
         nav.setWidthFull();
         add(navWrapper);
