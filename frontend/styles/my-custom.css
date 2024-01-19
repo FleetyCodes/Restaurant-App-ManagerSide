@@ -5,3 +5,7 @@ body{
 #mainPageNavbar{
     background-color: gray;
 }
+
+#mainPageNavbar [role="listitem"] > vaadin-side-nav-item:hover {
+   background-color: white;
+}
